@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+<div class="container">
+
+    <form action="/todoList/new" method="post">
+        <div class="form-group">
+            <label for="name">제목</label>
+            <input type="text" id="name" name="title" placeholder="할 일을 입력하세요."/>
+        </div>
+        <button type="submit" name="action" value="submit">등록</button>
+        <button type="submit" name="action" value="cancel">취소</button>
+    </form>
+
+</div>
+
+</body>
+</html>

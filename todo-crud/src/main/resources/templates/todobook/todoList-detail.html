@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+<div class="container">
+  <div>
+    <table>
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>제목</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="todoList : ${tdLists}">
+        <td th:text="${todoList.id}"></td>
+        <td th:text="${todoList.title}"></td>
+      </tr>
+      <!-- 뒤로가기 버튼 -->
+      <form action="/todoList/list" method="post">
+        <button type="submit" class="btn btn-secondary">뒤로가기</button>
+      </form>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+</body>
+</html>
