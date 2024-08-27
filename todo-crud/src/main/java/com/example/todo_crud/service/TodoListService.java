@@ -25,7 +25,15 @@ public class TodoListService {
         return listRepository.findAll();
     }
 
-    public Optional<TodoList> findOne(Long listId) {
-        return listRepository.findById(listId);
+    public void updateCompleted(Long id) {
+        TodoList updateId = listRepository.getReferenceById(id);
+
+        if (updateId.isCompleted()) {
+            updateId.setCompleted(false);
+        } else {
+            updateId.setCompleted(true);
+        }
+        listRepository.save(updateId);
+
     }
 }

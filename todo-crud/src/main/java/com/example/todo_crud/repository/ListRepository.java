@@ -9,7 +9,4 @@ import java.util.Optional;
 @Repository
 public interface ListRepository extends JpaRepository<TodoList, Long> {
 
-    Optional<TodoList> findByTitle(String title);
-
-
 }

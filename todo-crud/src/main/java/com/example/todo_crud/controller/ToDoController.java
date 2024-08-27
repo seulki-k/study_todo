@@ -26,9 +26,12 @@ public class ToDoController {
     }
 
     @PostMapping("/todoList/new")
-    public String create(@RequestParam("title") String title,
-                         @RequestParam("action") String action,
-                         Model model) {
+    public String create(
+            // 제목 입력 name = title
+            @RequestParam("title") String title,
+            // submit - 등록 ,cancel - 취소
+            @RequestParam("action") String action,
+            Model model) {
 
         if ("submit".equals(action)) {
             // 데이터 저장
@@ -37,10 +40,10 @@ public class ToDoController {
             todoListService.join(todoList);
             return "redirect:/"; // 리스트 페이지로 리디렉션
         } else if ("cancel".equals(action)) {
-            // 취소 처리: 다른 페이지로 리디렉션
-            return "redirect:/"; // 예를 들어 홈 페이지로 리디렉션
+            // 취소 처리: /페이지로  리디렉션
+            return "redirect:/";
         }
-    return "redirect:/";
+        return "redirect:/";
     }
 
     @GetMapping("/todoList/list")
@@ -49,8 +52,24 @@ public class ToDoController {
         model.addAttribute("tdLists", tdLists); // Consistent with the template
         return "todobook/todoList-detail";
     }
+
     @PostMapping("/todoList/list")
-    public String 탈주(){
+    public String 탈주(@RequestParam("action") String action,
+                     Model model) {
+
         return "redirect:/";
     }
+
+    @PostMapping("/todoList/change")
+    public String changeTodo(
+            @RequestParam("id") Long id,
+            @RequestParam("action") String action,
+            Model model) {
+
+        todoListService.updateCompleted(id);
+
+            return "redirect:/todoList/list";
+
+    }
+
 }

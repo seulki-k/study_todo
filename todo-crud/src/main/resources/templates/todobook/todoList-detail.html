@@ -3,26 +3,40 @@
 
 <body>
 <div class="container">
-  <div>
-    <table>
-      <thead>
-      <tr>
-        <th>#</th>
-        <th>제목</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr th:each="todoList : ${tdLists}">
-        <td th:text="${todoList.id}"></td>
-        <td th:text="${todoList.title}"></td>
-      </tr>
-      <!-- 뒤로가기 버튼 -->
-      <form action="/todoList/list" method="post">
-        <button type="submit" name="action" value="back">뒤로가기</button>
-      </form>
-      </tbody>
-    </table>
-  </div>
+    <div>
+        <!-- 뒤로가기 버튼 -->
+        <form action="/todoList/list" method="post">
+            <button type="submit" name="action" value="back">뒤로가기</button>
+        </form>
+            <br>
+            <table border='5'>
+                <thead>
+                <tr>
+                    <b>
+                        <th>number</th>
+                        <th>제목</th>
+                        <th>완료 여부</th>
+                    </b>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="todoList : ${tdLists}">
+                    <td th:text="${todoList.id}"></td>
+                    <td th:text="${todoList.title}"></td>
+                    <td th:text="${todoList.completed}"></td>
+                    <td>
+                        <form action="/todoList/change" method="post">
+                            <input type="hidden" name="id" th:value="${todoList.id}"/>
+
+                            <button type="submit" name="action" value="change">변경</button>
+
+                        </form>
+                    </td>
+                </tr>
+            </table>
+            </tbody>
+
+    </div>
 </div>
 
 </body>
