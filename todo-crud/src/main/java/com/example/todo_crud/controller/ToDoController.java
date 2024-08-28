@@ -53,12 +53,6 @@ public class ToDoController {
         return "todobook/todoList-detail";
     }
 
-    @PostMapping("/todoList/list")
-    public String 탈주(@RequestParam("action") String action,
-                     Model model) {
-
-        return "redirect:/";
-    }
 
     @PostMapping("/todoList/change")
     public String changeTodo(
@@ -68,7 +62,7 @@ public class ToDoController {
 
         todoListService.updateCompleted(id);
 
-            return "redirect:/todoList/list";
+        return "redirect:/todoList/list";
 
     }
 
