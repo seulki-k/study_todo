@@ -4,9 +4,11 @@
 <div class="container">
     <div>
         <!-- 뒤로가기 버튼 -->
-        <button type="button" onclick="goBack()">뒤로가기</button>
+        <button type="button" onclick="window.history.back()">뒤로가기</button>
+
         <br>
         <table border='5'>
+            <!-- thead 는 table head 정의 -->
             <thead>
             <tr>
                 <b>
@@ -16,8 +18,11 @@
                 </b>
             </tr>
             </thead>
+            <!-- tbody는 테이블 본문 정의 -->
             <tbody>
+            <!-- th:each="todoList : ${tdLists}" Thymeleaf에서 반복문을 돌리기 위한 구문-->
             <tr th:each="todoList : ${tdLists}">
+                <!-- td : 행, tr : 열 -->
                 <td th:text="${todoList.id}"></td>
                 <td th:text="${todoList.title}"></td>
                 <td th:text="${todoList.completed}"></td>

@@ -20,30 +20,32 @@ public class ToDoController {
         this.todoListService = todoListService;
     }
 
+
+    //등록하는 페이지로 이동
     @GetMapping("/todoList/new")
     public String showAddTodoPage() {
         return "todobook/todoListAdd";
     }
 
+
     @PostMapping("/todoList/new")
     public String create(
             // 제목 입력 name = title
+            //  <input type="text" id="name" name="title" placeholder="할 일을 입력하세요."/>
+            // 여기서 입력한 값이 value에 해당한다.
             @RequestParam("title") String title,
-            // submit - 등록 ,cancel - 취소
-            @RequestParam("action") String action,
-            Model model) {
-
+            //  <button type="submit" name="action" value="submit">등록</button>
+            //  <button type="submit" name="action" value="cancel">취소</button>
+            // value 값은 두 가지로 submit - 등록 ,cancel - 취소
+            @RequestParam("action") String action) {
+            //값만 저장하고 출력하는 페이지는 아니므로 Model 파라미터는 제외
         if ("submit".equals(action)) {
             // 데이터 저장
             TodoList todoList = new TodoList();
             todoList.setTitle(title);
             todoListService.join(todoList);
-            return "redirect:/"; // 리스트 페이지로 리디렉션
-        } else if ("cancel".equals(action)) {
-            // 취소 처리: /페이지로  리디렉션
-            return "redirect:/";
         }
-        return "redirect:/";
+        return "redirect:/todoList";
     }
 
     @GetMapping("/todoList/list")
@@ -53,13 +55,11 @@ public class ToDoController {
         return "todobook/todoList-detail";
     }
 
-
     @PostMapping("/todoList/change")
     public String changeTodo(
             @RequestParam("id") Long id,
-            @RequestParam("action") String action,
-            Model model) {
-
+            @RequestParam("action") String action) {
+        // Completed 값반 전환
         todoListService.updateCompleted(id);
 
         return "redirect:/todoList/list";

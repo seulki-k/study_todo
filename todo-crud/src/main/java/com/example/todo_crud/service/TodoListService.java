@@ -16,9 +16,10 @@ public class TodoListService {
         this.listRepository = listRepository;
     }
 
-    public Long join(TodoList todoList) {
-        TodoList savedTodo = listRepository.save(todoList);
-        return savedTodo.getId();
+    //파라미터로 받아 온 값을 저장
+    //save가 jpaRepository 메서드로 DB에 값 저장.
+    public void join(TodoList todoList) {
+        listRepository.save(todoList);
     }
 
     public List<TodoList> findTodoList() {
@@ -27,13 +28,19 @@ public class TodoListService {
 
     public void updateCompleted(Long id) {
         TodoList updateId = listRepository.getReferenceById(id);
-
+        // id 파라미러로 받아와서 해당 id의 완료 여부 변경
         if (updateId.isCompleted()) {
             updateId.setCompleted(false);
         } else {
             updateId.setCompleted(true);
         }
         listRepository.save(updateId);
+    }
+    public void deleteTodoList(Long id){
+        listRepository.deleteById(id);
+    }
 
+    public Optional<TodoList> findById(Long id) {
+        return listRepository.findById(id);
     }
 }

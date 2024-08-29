@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List</title>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            fetchTodos();
+
+            // Add event listener to the form
+            document.getElementById('addTodoForm').addEventListener('submit', function(event) {
+                event.preventDefault();
+                const title = document.getElementById('title').value;
+                addTodo(title);
+            });
+        });
+
+        function fetchTodos() {
+            fetch('/restful')
+                .then(response => response.json())
+                .then(data => {
+                    const todoList = document.getElementById('todoList');
+                    todoList.innerHTML = ''; // Clear existing todos
+                    data.forEach(todo => {
+                        const todoItem = document.createElement('li');
+                        todoItem.id = `todo-${todo.id}`;
+                        todoItem.innerHTML = `
+                            ${todo.title}
+                            <button onclick="deleteTodo(${todo.id})">Delete</button>
+                        `;
+                        todoList.appendChild(todoItem);
+                    });
+                })
+                .catch(error => console.error('Error fetching todos:', error));
+        }
+
+        function addTodo(title) {
+            fetch('/restful', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: new URLSearchParams({
+                    'title': title
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                fetchTodos(); // Refresh the list
+                document.getElementById('title').value = ''; // Clear the input field
+            })
+            .catch(error => console.error('Error adding todo:', error));
+        }
+
+        function deleteTodo(id) {
+            fetch(`/restful/${id}`, {
+                method: 'DELETE'
+            })
+            .then(response => {
+                if (response.ok) {
+                    document.getElementById(`todo-${id}`).remove(); // Remove the item from the list
+                } else {
+                    console.error('Failed to delete todo item');
+                }
+            })
+            .catch(error => console.error('Error deleting todo:', error));
+        }
+    </script>
+</head>
+<body>
+<h1>Todo List</h1>
+<form id="addTodoForm">
+    <!-- required 무조건 값 입력해야 한다. -->
+    <input type="text" id="title" placeholder="무조건 입력 해야된다." required>
+    <button type="submit">입력</button>
+</form>
+<ul id="todoList"></ul>
+</body>
+</html>
