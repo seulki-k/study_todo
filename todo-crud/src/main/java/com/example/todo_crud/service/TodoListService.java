@@ -1,6 +1,6 @@
 package com.example.todo_crud.service;
 
-import com.example.todo_crud.model.TodoList;
+import com.example.todo_crud.domain.TodoList;
 import com.example.todo_crud.repository.ListRepository;
 import org.springframework.stereotype.Service;
 

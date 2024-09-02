@@ -1,43 +1,31 @@
 package com.example.todo_crud.controller;
 
-import com.example.todo_crud.model.TodoList;
-import com.example.todo_crud.service.TodoListService;
-import org.springframework.http.HttpStatus;
+import com.example.todo_crud.domain.UserList;
+import com.example.todo_crud.dto.LoginRequestDTO;
+import com.example.todo_crud.service.UserListService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.Optional;
 
 @RestController
-@RequestMapping("/restful")
+@RequestMapping("/login")
 public class ToDoRestController {
 
-    private final TodoListService todoListService;
+    private final UserListService userListService;
 
-    public ToDoRestController(TodoListService todoListService) {
-        this.todoListService = todoListService;
+    public ToDoRestController(UserListService userListService) {
+        this.userListService = userListService;
     }
 
-    // GET - 조회
-    @GetMapping
-    public List<TodoList> getAllTodos() {
-        List<TodoList> tdLists = todoListService.findTodoList();
-        return tdLists;
-    }
-
-    // POST - 추가
     @PostMapping
-    public List<TodoList> addTodo(@RequestParam("title") String title) {
-        TodoList todoList = new TodoList();
-        todoList.setTitle(title);
-        todoListService.join(todoList);
+    public ResponseEntity<String> login(@RequestBody LoginRequestDTO req) {
+        Optional<UserList> user = userListService.login(req.getUserId(), req.getPassword());
 
-        return todoListService.findTodoList();
-    }
-
-    // DELETE - 삭제
-    @DeleteMapping("/{id}")
-    public void deleteTodo(@PathVariable Long id) {
-        todoListService.deleteTodoList(id);
+        if (user.isPresent()) {
+            return ResponseEntity.ok("Login successful!");
+        } else {
+            return ResponseEntity.status(401).body("Login failed: Invalid ID or Password");
+        }
     }
 }

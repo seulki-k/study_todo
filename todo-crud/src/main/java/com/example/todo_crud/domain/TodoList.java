@@ -1,4 +1,4 @@
-package com.example.todo_crud.model;
+package com.example.todo_crud.domain;
 
 import jakarta.persistence.*;
 
