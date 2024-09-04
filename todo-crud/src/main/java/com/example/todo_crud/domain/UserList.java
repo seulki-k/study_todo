@@ -1,8 +1,14 @@
 package com.example.todo_crud.domain;
 
-import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.*;
+
 
 @Entity
+@Getter
+@Setter
 public class UserList {
 
     @Id // PK 설정
@@ -16,30 +22,6 @@ public class UserList {
     private String password;
 
     public UserList() {
-    }
-
-    public Long getAccountNo() {
-        return accountNo;
-    }
-
-    public void setAccountNo(Long accountNo) {
-        this.accountNo = accountNo;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public UserList(Long accountNo, String userId, String password) {

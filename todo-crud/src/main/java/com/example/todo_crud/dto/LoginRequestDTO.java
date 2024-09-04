@@ -1,22 +1,21 @@
 package com.example.todo_crud.dto;
 
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class LoginRequestDTO {
     private String userId;
     private String password;
 
-    public String getUserId() {
-        return userId;
+    public LoginRequestDTO() {
     }
 
-    public void setUserId(String userId) {
+    public LoginRequestDTO(String userId, String password) {
         this.userId = userId;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
         this.password = password;
     }
 }
