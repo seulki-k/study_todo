@@ -15,7 +15,7 @@ public class UserListService {
         this.userRepository = userRepository;
     }
 
-    public Optional<UserList> login(String userId, String password) {
-        return userRepository.findByUserIdAndPassword(userId, password);
+    public Optional<UserList> login(String userName, String password) {
+        return userRepository.findByUserNameAndPassword(userName,password);
     }
 }

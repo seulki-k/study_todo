@@ -16,30 +16,38 @@ public class UserList {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;  // 자동 증가 ID
 
-    @Column(nullable = false, length = 20)
-    private String userId;  // 사용자 계정 ID
+    @Column(length = 100, unique = true)
+    private String userName;  // 사용자 계정 ID
 
-    @Column(nullable = false, length = 20)
+    @Column(length = 100)
     private String password;  // 사용자 계정 비밀번호
 
-
-    @Column(nullable = false, length = 100)
+    @Column( length = 100)
     private String name;  // 사용자 이름
 
-    @Column(nullable = false, unique = true, length = 100)
+    @Column(unique = true)
     private String email;  // 이메일 (고유)
 
-    @Column(nullable = false, unique = true, length = 15)
+    @Column(unique = true)
     private String phone;  // 전화번호 (고유)
+
+    @Column(unique = true)
+    private String gitUrl;
+
+    @Column(columnDefinition = "TEXT")
+    private String bio;
 
     @Column(name = "registration_date")
     private LocalDate registrationDate;  // 가입 날짜
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false, length = 50)
+    @Column(length = 50)
     private UserType userType;  // 사용자 유형 (ENUM)
 
-    @Column(name = "profile_image_id", nullable = false)
+    @Column( length = 50)
+    private String role;  // 사용자 권한
+
+    @Column(name = "profile_image_id")
     private int profileImageId;  // 프로필 사진 ID
 
     @Column(columnDefinition = "TEXT")
@@ -54,16 +62,5 @@ public class UserList {
     public UserList() {
     }
 
-    public UserList(Long id, String userId, String password, String name, String email, String phone, LocalDate registrationDate, UserType userType, int profileImageId, String experience) {
-        this.id = id;
-        this.userId = userId;
-        this.password = password;
-        this.name = name;
-        this.email = email;
-        this.phone = phone;
-        this.registrationDate = registrationDate;
-        this.userType = userType;
-        this.profileImageId = profileImageId;
-        this.experience = experience;
-    }
+
 }
