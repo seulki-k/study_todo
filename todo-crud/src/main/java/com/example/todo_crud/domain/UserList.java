@@ -42,10 +42,8 @@ public class UserList {
 
     @Enumerated(EnumType.STRING)
     @Column(length = 50)
-    private UserType userType;  // 사용자 유형 (ENUM)
+    private UserType role;  // 사용자 유형 (ENUM)
 
-    @Column( length = 50)
-    private String role;  // 사용자 권한
 
     @Column(name = "profile_image_id")
     private int profileImageId;  // 프로필 사진 ID
@@ -54,9 +52,9 @@ public class UserList {
     private String experience;  // 강사 경력 정보 (optional)
 
     public enum UserType {
-        ADMIN,
-        USER,
-        STUDENT // 정의가 되어 있어야 합니다.
+        ROLE_ADMIN,
+        ROLE_USER,
+        ROLE_STUDENT // 정의가 되어 있어야 합니다.
     }
 
     public UserList() {

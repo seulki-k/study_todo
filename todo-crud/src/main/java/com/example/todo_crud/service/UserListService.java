@@ -51,7 +51,7 @@ public class UserListService {
             // 비밀번호가 일치하는지 확인합니다.
             if (passwordEncoder.matches(password, user.get().getPassword())) {
                 // 비밀번호가 일치하면 JWT 토큰을 생성합니다. - 10시간
-                String token = jwtUtil.createJWT(userName, user.get().getRole(), 60*60*10L);
+                String token = jwtUtil.createJWT(userName, user.get().getRole().toString(), 60*60*10L);
                 // LoginResponseDTO 객체를 생성하고 반환합니다.
                 LoginResponseDTO response = new LoginResponseDTO(token);
                 return Optional.of(response);

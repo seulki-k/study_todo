@@ -40,8 +40,9 @@ public class JwtFilter extends OncePerRequestFilter {
 
         // 4. 토큰이 만료되었는지 확인
         if (jwtUtil.isExpired(token)) {
-            System.out.println("token expired");
+            System.out.println("token expired\n");
             filterChain.doFilter(request, response);
+
             return;  // 토큰이 만료되었다면 요청을 다음 필터로 전달
         }
 
@@ -53,7 +54,7 @@ public class JwtFilter extends OncePerRequestFilter {
         UserList userList = new UserList();
         userList.setUserName(userName);
         userList.setPassword("temppassword");  // 실제 비밀번호는 사용되지 않고 임시 비밀번호로 설정
-        userList.setRole(role);
+        userList.setRole(UserList.UserType.valueOf(role));
 
         // 7. CustomUserDetails 객체 생성, 이 객체는 Spring Security에서 사용하는 사용자 정보 객체
         CustomUserDetails customUserDetails = new CustomUserDetails(userList);

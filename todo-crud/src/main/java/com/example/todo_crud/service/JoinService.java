@@ -33,7 +33,7 @@ public class JoinService {
 
         data.setUserName(username);
         data.setPassword(bCryptPasswordEncoder.encode(password));
-        data.setRole("ROLE_ADMIN");
+        data.setRole(UserList.UserType.ROLE_ADMIN);
 
         userRepository.save(data);
     }
